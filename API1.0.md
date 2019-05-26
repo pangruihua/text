@@ -80,7 +80,7 @@ response:
 | 参数名 | 类型 | 限制 | 描述 |
 |:-------:|:-------|--------|--------:|
 |cid|int|1~50字节|课程ID|
-|kanme|varchar1~50字节|课程名字|
+|kanme|varchar|1~50字节|课程名字|
 |summary|varchar|无限制|课程介绍|
 #### 用例：
 ```
@@ -97,7 +97,7 @@ response:
 		]
 	}
 ```
-# [ GET ] course/1/chapter
+# [ GET ] /course/1/chapter
 #### 功能：根据课程的id查询课程的章节
 #### 接口描述：课程栏
 #### 参数
@@ -105,7 +105,7 @@ response:
 |:-------:|:-------|--------|--------:|
 |course|varhcar|1~50字节|课程|
 |cid|int|1~50字节|课程ID|
-|chapter|String|1~50字节|用户章节|
+|chapter|varchar|1~50字节|课程章节|
 #### 返回参数
 | 参数名 | 类型 | 限制 | 描述 |
 |:-------:|:-------|--------|--------:|
@@ -116,7 +116,7 @@ response:
 ```
 /course/1/course
 {
-	"chapters":
+	"chapter":
 	[
 		{
 			"chapterid":"1",
@@ -130,3 +130,62 @@ response:
 		}
 	]
 }
+```
+# [ GET ] /chapter/1/chapter_section
+#### 功能：根据章节的id查询章节的小节
+#### 接口描述：章节栏
+#### 参数
+| 参数名 | 类型 | 限制 | 描述 |
+|:-------:|:-------|--------|--------:|
+|chapter|varhcar|1~50字节|课程章节|
+|chapterid|int|1~50字节|章节ID|
+|chapter_section|varchar|1~50字节|章节的小节|
+#### 返回参数
+| 参数名 | 类型 | 限制 | 描述 |
+|:-------:|:-------|--------|--------:|
+|chapterid|int|1~50字节|章节ID|
+|barid|int|1~50字节|小节ID|
+|barName|varchar|1~50字节|小节名|
+#### 用例：
+```
+chapter/1/chapter_section
+{
+	"chapter_section":
+	[
+		{"barid":1,"barName":"1-1.第一节","chapterid":1,"src":null},
+		{"barid":2,"barName":"1-2.第二节","chapterid":1,"src":null},
+		{"barid":3,"barName":"1-3.第三节","chapterid":1,"src":null}
+	]
+}
+```
+# [ POST ] /nickname
+#### 功能：修改用户昵称
+#### 接口描述：修改用户昵称那一栏
+#### 参数
+| 参数名 | 类型 | 限制 | 描述 |
+|:-------:|:-------|--------|--------:|
+|nickname|varhcar|1~50字节|用户昵称|
+#### 用例：
+```
+正向用例
+request:
+{
+	
+	"nickname":"李四"
+}
+response:
+{
+	"success":true,
+    "message":"昵称修改成功"
+}
+反向用例
+request:
+{
+	
+	"nickname":"张五"
+}
+response:
+"error": 
+        {
+            "message":"昵称已经存在,请输入新的昵称"
+        }
